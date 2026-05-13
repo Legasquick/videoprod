@@ -59,27 +59,7 @@ export function Hero() {
         }}
       />
 
-      {/* Company name */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          padding: `24px ${px}px`,
-          opacity: loaded ? 1 : 0,
-          transition: "opacity 0.8s ease 0.2s",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: isMobile ? 16 : 20,
-            letterSpacing: "0.06em",
-            color: "#000",
-          }}
-        >
-          НАЗВАНИЕ
-        </span>
-      </div>
+      <div style={{ position: "relative", zIndex: 10, padding: `24px ${px}px` }} />
 
       {/* Main hero content */}
       <div
@@ -303,7 +283,7 @@ export function Hero() {
                 style={{
                   fontFamily: FONT_DISPLAY,
                   fontSize: isMobile ? 18 : 24,
-                  color: "rgba(0,0,0,0.06)",
+                  color: "rgba(0,0,0,0.62)",
                   letterSpacing: "0.05em",
                   margin: "0 20px",
                 }}
@@ -311,7 +291,7 @@ export function Hero() {
                 {t}
                 <span
                   style={{
-                    color: "rgba(255,61,0,0.15)",
+                    color: "rgba(255,61,0,0.9)",
                     margin: "0 14px",
                     fontSize: 14,
                   }}

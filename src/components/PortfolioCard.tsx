@@ -32,12 +32,30 @@ export function PortfolioCard({
         ...style,
       }}
     >
+      {item.videoSrc && (
+        <video
+          src={item.videoSrc}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      )}
+
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor:
-            isHovered && !isRed ? "rgba(255,61,0,0.06)" : "transparent",
+          backgroundColor: isHovered
+            ? "rgba(255,61,0,0.08)"
+            : "rgba(0,0,0,0.18)",
           transition: "background-color 0.4s",
         }}
       />
@@ -52,10 +70,9 @@ export function PortfolioCard({
           fontSize: 9,
           fontWeight: 700,
           letterSpacing: "0.1em",
-          color: isRed ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.25)",
-          border: isRed
-            ? "1px solid rgba(0,0,0,0.15)"
-            : "1px solid rgba(255,255,255,0.1)",
+          color: "rgba(255,255,255,0.72)",
+          border: "1px solid rgba(255,255,255,0.28)",
+          backgroundColor: "rgba(0,0,0,0.24)",
           padding: "3px 8px",
           zIndex: 2,
         }}
@@ -73,7 +90,7 @@ export function PortfolioCard({
           fontFamily: FONT_DISPLAY,
           fontSize: isReel ? 100 : 80,
           lineHeight: 1,
-          color: isRed ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.025)",
+          color: "rgba(255,255,255,0.08)",
           userSelect: "none",
           pointerEvents: "none",
         }}
@@ -148,19 +165,21 @@ export function PortfolioCard({
             {item.year}
           </span>
         </div>
-        <h3
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: isReel ? 18 : 20,
-            letterSpacing: "0.04em",
-            color: isRed ? "#000" : "#fff",
-            margin: 0,
-            lineHeight: 1,
-            textTransform: "uppercase",
-          }}
-        >
-          {item.title}
-        </h3>
+        {item.title && (
+          <h3
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontSize: isReel ? 18 : 20,
+              letterSpacing: "0.04em",
+              color: isRed ? "#000" : "#fff",
+              margin: 0,
+              lineHeight: 1,
+              textTransform: "uppercase",
+            }}
+          >
+            {item.title}
+          </h3>
+        )}
       </div>
     </div>
   );

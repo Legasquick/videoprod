@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { FONT_DISPLAY, FONT_MONO } from "../styles/constants";
 import { portfolio } from "../data/portfolio";
@@ -44,18 +44,7 @@ export function PortfolioPage() {
           backgroundColor: "#FFFEF5",
         }}
       >
-        <Link
-          to="/"
-          style={{
-            fontFamily: FONT_DISPLAY,
-            fontSize: isMobile ? 16 : 20,
-            letterSpacing: "0.06em",
-            color: "#000",
-            textDecoration: "none",
-          }}
-        >
-          НАЗВАНИЕ
-        </Link>
+        <div />
         <button
           onClick={() => navigate(-1)}
           style={{

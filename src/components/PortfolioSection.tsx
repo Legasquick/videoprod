@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
 import { useOnScreen } from "../hooks/useOnScreen";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { FONT_DISPLAY, FONT_MONO } from "../styles/constants";
@@ -7,6 +6,7 @@ import { portfolio } from "../data/portfolio";
 import { PortfolioCard } from "./PortfolioCard";
 
 const GAP = 12;
+const PORTFOLIO_URL = "https://disk.yandex.ru/d/YlUkje4RZ_Jnhg";
 
 /**
  * Home-page portfolio preview.
@@ -23,12 +23,8 @@ export function PortfolioSection() {
   const isMobile = useIsMobile();
   const px = isMobile ? 20 : 40;
 
-  // items 0,2 = 16:9   item 1 = 9:16
-  // items 4,5 = 16:9   item 3 = 9:16
-  const g1Wide = [portfolio[0], portfolio[2]];
-  const g1Tall = portfolio[1];
-  const g2Tall = portfolio[3];
-  const g2Wide = [portfolio[4], portfolio[5]];
+  const wideItems = portfolio.filter((item) => item.format === "16:9");
+  const tallItems = portfolio.filter((item) => item.format === "9:16");
 
   return (
     <section
@@ -151,55 +147,49 @@ export function PortfolioSection() {
                   gap: GAP,
                 }}
               >
-                {g1Wide.map((p, i) => (
+                {wideItems.slice(0, 2).map((p, i) => (
                   <PortfolioCard
                     key={i}
                     item={p}
-                    index={i === 0 ? 0 : 2}
+                    index={portfolio.indexOf(p)}
                   />
                 ))}
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <PortfolioCard item={g1Tall} index={1} />
-              </div>
+              {tallItems[0] && (
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <PortfolioCard
+                    item={tallItems[0]}
+                    index={portfolio.indexOf(tallItems[0])}
+                  />
+                </div>
+              )}
             </div>
 
-            {/* Group 2 — one 9:16 left + two 16:9 right */}
+            {/* Group 2 — one 16:9 card */}
             <div
               style={{
                 display: "flex",
-                gap: GAP,
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(30px)",
                 transition: "all 0.7s ease 0.3s",
               }}
             >
-              <div style={{ flex: "0 0 39%", minWidth: 0 }}>
-                <PortfolioCard item={g2Tall} index={3} />
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: GAP,
-                }}
-              >
-                {g2Wide.map((p, i) => (
-                  <PortfolioCard
-                    key={i}
-                    item={p}
-                    index={i === 0 ? 4 : 5}
-                  />
-                ))}
-              </div>
+              {wideItems[2] && (
+                <PortfolioCard
+                  item={wideItems[2]}
+                  index={portfolio.indexOf(wideItems[2])}
+                  style={{ width: "100%" }}
+                />
+              )}
             </div>
           </div>
         )}
 
         {/* "ВСЕ РАБОТЫ" link */}
-        <Link
-          to="/portfolio"
+        <a
+          href={PORTFOLIO_URL}
+          target="_blank"
+          rel="noreferrer"
           style={{
             display: "flex",
             alignItems: "center",
@@ -255,7 +245,7 @@ export function PortfolioSection() {
               Смотреть полное портфолио →
             </span>
           </div>
-        </Link>
+        </a>
       </div>
     </section>
   );

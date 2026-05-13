@@ -1,9 +1,10 @@
 import { useIsMobile } from "../hooks/useIsMobile";
-import { FONT_DISPLAY, FONT_MONO } from "../styles/constants";
+import { FONT_MONO } from "../styles/constants";
 
 export function Footer() {
   const isMobile = useIsMobile();
   const px = isMobile ? 20 : 40;
+  const contactEmail = ["g.n.mamedova", "yandex.ru"].join("@");
 
   return (
     <footer
@@ -25,15 +26,6 @@ export function Footer() {
         }}
       >
         <div>
-          <span
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontSize: 18,
-              letterSpacing: "0.06em",
-            }}
-          >
-            НАЗВАНИЕ
-          </span>
           <p
             style={{
               fontFamily: FONT_MONO,
@@ -51,35 +43,10 @@ export function Footer() {
         </div>
 
         <div>
-          <p
+          <a
+            href={`mailto:${contactEmail}`}
             style={{
-              fontFamily: FONT_MONO,
-              fontSize: 9,
-              letterSpacing: "0.3em",
-              color: "rgba(255,255,255,0.25)",
-              textTransform: "uppercase",
-              marginBottom: 12,
-            }}
-          >
-            Контакты
-          </p>
-          <p
-            style={{
-              fontFamily: FONT_MONO,
-              fontSize: 13,
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 2,
-            }}
-          >
-            hello@company.pro
-            <br />
-            +7 (999) 123-45-67
-          </p>
-        </div>
-
-        <div>
-          <button
-            style={{
+              display: "inline-block",
               padding: "14px 28px",
               backgroundColor: "#FF3D00",
               color: "#fff",
@@ -90,10 +57,11 @@ export function Footer() {
               fontWeight: 700,
               border: "none",
               cursor: "pointer",
+              textDecoration: "none",
             }}
           >
             Написать нам
-          </button>
+          </a>
         </div>
       </div>
 
@@ -109,26 +77,7 @@ export function Footer() {
           gap: isMobile ? 8 : 0,
         }}
       >
-        <span
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: 10,
-            color: "rgba(255,255,255,0.15)",
-            letterSpacing: "0.1em",
-          }}
-        >
-          © 2026 НАЗВАНИЕ
-        </span>
-        <span
-          style={{
-            fontFamily: FONT_MONO,
-            fontSize: 10,
-            color: "rgba(255,255,255,0.15)",
-            letterSpacing: "0.1em",
-          }}
-        >
-          МОСКВА, РОССИЯ
-        </span>
+        <span />
       </div>
     </footer>
   );
