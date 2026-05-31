@@ -17,7 +17,23 @@ export function PortfolioCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const isReel = item.format === "9:16";
-  const isRed = item.bg === "#FF3D00";
+  const playHref = item.playUrl ?? item.videoSrc;
+  const playButtonStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0.7})`,
+    width: 52,
+    height: 52,
+    borderRadius: "50%",
+    backgroundColor: "#FF3D00",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: isHovered ? 1 : 0,
+    transition: "all 0.35s ease",
+    zIndex: 3,
+  };
 
   return (
     <div
@@ -99,28 +115,20 @@ export function PortfolioCard({
       </div>
 
       {/* Play button on hover */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0.7})`,
-          width: 52,
-          height: 52,
-          borderRadius: "50%",
-          backgroundColor: "#FF3D00",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          opacity: isHovered ? 1 : 0,
-          transition: "all 0.35s ease",
-          zIndex: 3,
-        }}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </div>
+      {playHref && (
+        <a
+          href={playHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Открыть видео: ${item.title ?? item.category}`}
+          onClick={(e) => e.stopPropagation()}
+          style={playButtonStyle}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </a>
+      )}
 
       {/* Bottom info */}
       <div
@@ -130,9 +138,7 @@ export function PortfolioCard({
           left: 0,
           right: 0,
           padding: 16,
-          background: isRed
-            ? "linear-gradient(transparent, rgba(200,40,0,0.5))"
-            : "linear-gradient(transparent, rgba(0,0,0,0.7))",
+          background: "linear-gradient(transparent, rgba(0,0,0,0.78))",
           zIndex: 2,
         }}
       >
@@ -149,7 +155,7 @@ export function PortfolioCard({
               fontFamily: FONT_MONO,
               fontSize: 9,
               letterSpacing: "0.15em",
-              color: isRed ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.54)",
               textTransform: "uppercase",
             }}
           >
@@ -159,7 +165,7 @@ export function PortfolioCard({
             style={{
               fontFamily: FONT_MONO,
               fontSize: 9,
-              color: isRed ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.3)",
             }}
           >
             {item.year}
@@ -169,17 +175,29 @@ export function PortfolioCard({
           <h3
             style={{
               fontFamily: FONT_DISPLAY,
-              fontSize: isReel ? 18 : 20,
+              fontSize: isReel ? 20 : 24,
               letterSpacing: "0.04em",
-              color: isRed ? "#000" : "#fff",
+              color: "#fff",
               margin: 0,
-              lineHeight: 1,
-              textTransform: "uppercase",
+              lineHeight: 1.05,
+              textWrap: "balance",
             }}
           >
             {item.title}
           </h3>
         )}
+        <p
+          style={{
+            fontFamily: FONT_MONO,
+            fontSize: isReel ? 10 : 11,
+            lineHeight: 1.35,
+            color: "rgba(255,255,255,0.76)",
+            maxWidth: isReel ? 260 : 520,
+            margin: item.title ? "8px 0 0" : 0,
+          }}
+        >
+          {item.desc}
+        </p>
       </div>
     </div>
   );

@@ -7,8 +7,8 @@ export function HomePage() {
   return (
     <div>
       <Hero />
-      <Services />
       <PortfolioSection />
+      <Services />
       <Footer />
     </div>
   );

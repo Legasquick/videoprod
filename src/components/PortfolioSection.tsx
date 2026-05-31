@@ -6,7 +6,8 @@ import { portfolio } from "../data/portfolio";
 import { PortfolioCard } from "./PortfolioCard";
 
 const GAP = 12;
-const PORTFOLIO_URL = "https://disk.yandex.ru/d/YlUkje4RZ_Jnhg";
+const PORTFOLIO_URL =
+  "https://drive.google.com/drive/folders/15z9cOczt3gF53p7Yobn_R6Ya0QLJVByE?usp=sharing";
 
 /**
  * Home-page portfolio preview.
@@ -165,22 +166,31 @@ export function PortfolioSection() {
               )}
             </div>
 
-            {/* Group 2 — one 16:9 card */}
+            {/* Group 2 — remaining 16:9 cards in a clean two-column rhythm */}
             <div
               style={{
-                display: "flex",
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: GAP,
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(30px)",
                 transition: "all 0.7s ease 0.3s",
               }}
             >
-              {wideItems[2] && (
+              {wideItems.slice(2).map((p, i, rest) => (
                 <PortfolioCard
-                  item={wideItems[2]}
-                  index={portfolio.indexOf(wideItems[2])}
-                  style={{ width: "100%" }}
+                  key={portfolio.indexOf(p)}
+                  item={p}
+                  index={portfolio.indexOf(p)}
+                  style={{
+                    width: "100%",
+                    gridColumn:
+                      rest.length % 2 === 1 && i === rest.length - 1
+                        ? "1 / -1"
+                        : undefined,
+                  }}
                 />
-              )}
+              ))}
             </div>
           </div>
         )}

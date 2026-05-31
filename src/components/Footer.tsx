@@ -4,7 +4,10 @@ import { FONT_MONO } from "../styles/constants";
 export function Footer() {
   const isMobile = useIsMobile();
   const px = isMobile ? 20 : 40;
-  const contactEmail = ["g.n.mamedova", "yandex.ru"].join("@");
+  const contacts = [
+    { label: "Telegram @gunayTIGI", href: "https://t.me/gunayTIGI", icon: "telegram" },
+    { label: "MAX +7 926 585 01 54", href: "tel:+79265850154", icon: "max" },
+  ];
 
   return (
     <footer
@@ -42,26 +45,52 @@ export function Footer() {
           </p>
         </div>
 
-        <div>
-          <a
-            href={`mailto:${contactEmail}`}
-            style={{
-              display: "inline-block",
-              padding: "14px 28px",
-              backgroundColor: "#FF3D00",
-              color: "#fff",
-              fontFamily: FONT_MONO,
-              fontSize: 11,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              fontWeight: 700,
-              border: "none",
-              cursor: "pointer",
-              textDecoration: "none",
-            }}
-          >
-            Написать нам
-          </a>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            gap: 10,
+          }}
+        >
+          {contacts.map((contact) => (
+            <a
+              key={contact.href}
+              href={contact.href}
+              target={contact.href.startsWith("http") ? "_blank" : undefined}
+              rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
+              aria-label={contact.label}
+              title={contact.label}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 48,
+                height: 48,
+                backgroundColor: "#FF3D00",
+                color: "#fff",
+                fontFamily: FONT_MONO,
+                fontSize: 12,
+                fontWeight: 700,
+                border: "none",
+                borderRadius: "50%",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+            >
+              {contact.icon === "telegram" ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.8 4.1 18.5 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.9 13.5 1 12c-1.1-.3-1.1-1.1.2-1.6L20.4 3c.9-.3 1.7.2 1.4 1.1Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ) : (
+                <span aria-hidden="true" style={{ letterSpacing: "-0.08em" }}>
+                  MAX
+                </span>
+              )}
+            </a>
+          ))}
         </div>
       </div>
 
